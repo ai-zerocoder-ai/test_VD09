@@ -21,6 +21,10 @@ def register():
         db.session.commit()
         flash('Вы успешно зарегистрировались!', 'success')
         return redirect(url_for('login'))
+    elif form.errors:  # Если есть ошибки в форме
+        for field, errors in form.errors.items():
+            for error in errors:
+                flash(error, 'danger')  # Отображаем каждую ошибку как flash-сообщение
     return render_template("register.html", form=form)
 
 @app.route('/login', methods=['GET', 'POST'])
